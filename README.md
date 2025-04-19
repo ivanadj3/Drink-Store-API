@@ -47,17 +47,17 @@ The goal was to implement a robust system for handling CRUD operations on these 
 - All endpoints return appropriate status codes (`200`, `201`, `404`, `400`, etc.) depending on the operation result or error.
 
 
-### 📍 **Orders Resource**
+### **Orders Resource**
 
 - **POST /orders**  
   Handles order submissions.
 
-  ✅ For **all orders**:
+  For **all orders**:
   - Stored in an XML file with a unique name (prefix: `internalERP`)  
   - XML structure is wrapped in `<order>` root element  
   - Saved to: `src/main/resources/internalERP/`
 
-  ✅ For **large orders** (outsourced to Chinese ERP):
+  For **large orders** (outsourced to Chinese ERP):
   - Conditions:
     - `productType == "C"`  
     - `amount > 100` units
