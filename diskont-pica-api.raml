@@ -1,0 +1,622 @@
+#%RAML 1.0
+title: Diskont Pica API
+types:
+  Customer: !include /DataTypes/CustomerDataType.raml
+  Distributor: !include /DataTypes/DistributorDataType.raml
+  Employee: !include /DataTypes/EmployeeDataType.raml
+  OrganizationUnit: !include /DataTypes/OrganizationUnitDataType.raml
+  Payment:  !include /DataTypes/PaymentDataType.raml
+  Product:    !include /DataTypes/ProductDataType.raml
+  ProductType: !include /DataTypes/ProductTypeDataType.raml
+  Trademark: !include /DataTypes/TrademarkDataType.raml
+  User: !include /DataTypes/UserDataType.raml
+
+/customer:
+  get:
+    headers:
+      active:
+        required: false
+        type: boolean
+    responses:
+      200:
+        body:
+          application/json:
+            type: Customer[]
+            examples: !include /Examples/CustomerExamples.raml
+      404:
+        body:
+          application/json:
+            default: string "Not found."
+  post:
+    body:
+      application/json:
+        type: Customer
+        examples:
+          input: !include /Examples/CustomerExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Customer added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: Customer
+              examples:
+                output: !include /Examples/CustomerExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Customer with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: Customer
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Customer updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Customer deleted."
+        404:
+          body:
+            application/json:
+              example:
+                message: string "Not found."
+
+/employee:
+  get:
+    queryParameters:
+      gender:
+        required: false
+        enum:
+          - M
+          - F
+    responses:
+      200:
+        body:
+          application/json:
+            type: Employee[]
+            examples: 
+              output: !include /Examples/EmployeeExamples.raml
+      404:
+        body:
+          application/json:
+            examples:
+              message: string "Not found."
+  post:
+    body:
+      application/json:
+        type: Employee
+        examples:
+          input: !include /Examples/EmployeeExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Employee added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: Employee
+              examples:
+                output: !include /Examples/EmployeeExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Employee with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: Employee
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Employee updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Employee deleted."
+
+/distributor:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Distributor[]
+            examples: 
+              output: !include /Examples/DistributorExamples.raml
+      404:
+        body:
+          application/json:
+            examples:
+              message: string "Not found."
+  post:
+    body:
+      application/json:
+        type: Distributor
+        examples:
+          input: !include /Examples/DistributorExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Distributor added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: Distributor
+              examples:
+                output: !include /Examples/DistributorExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Distributor with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: Distributor
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Distributor updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Distributor deleted."
+
+/organizationunit:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: OrganizationUnit[]
+            examples: 
+              output: !include /Examples/OrganizationUnitExamples.raml
+      404:
+        body:
+          application/json:
+            examples:
+              message: string "Not found."
+  post:
+    body:
+      application/json:
+        type: OrganizationUnit
+        examples:
+          input: !include /Examples/OrganizationUnitExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Organization unit added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: OrganizationUnit
+              examples:
+                output: !include /Examples/OrganizationUnitExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Organization unit with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: OrganizationUnit
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Organization unit updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Organization unit deleted."
+
+/payment:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Payment[]
+            examples: !include /Examples/PaymentExamples.raml
+      404:
+        body:
+          application/json:
+            default: string "Not found."
+  post:
+    body:
+      application/json:
+        type: Payment
+        examples:
+          input: !include /Examples/PaymentExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Payment added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: Payment
+              examples:
+                output: !include /Examples/PaymentExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Payment with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: Payment
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Payment updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Payment deleted."
+        404:
+          body:
+            application/json:
+              example:
+                message: string "Not found."
+
+/product:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Product[]
+            examples: 
+              output: !include /Examples/ProductExamples.raml
+      404:
+        body:
+          application/json:
+            examples:
+              message: string "Not found."
+  post:
+    body:
+      application/json:
+        type: Product
+        examples:
+          input: !include /Examples/ProductExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Product added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: Product
+              examples:
+                output: !include /Examples/ProductExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Product with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: Product
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Product updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Product deleted."
+
+/producttype:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: ProductType[]
+            examples: 
+              output: !include /Examples/ProductTypeExamples.raml
+      404:
+        body:
+          application/json:
+            examples:
+              message: string "Not found."
+  post:
+    body:
+      application/json:
+        type: ProductType
+        examples:
+          input: !include /Examples/ProductTypeExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Product type added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: ProductType
+              examples:
+                output: !include /Examples/ProductTypeExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Product type with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: ProductType
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Product type updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Product type deleted."
+
+/trademark:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Trademark[]
+            examples: 
+              output: !include /Examples/TrademarkExamples.raml
+      404:
+        body:
+          application/json:
+            examples:
+              message: string "Not found."
+  post:
+    body:
+      application/json:
+        type: Trademark
+        examples:
+          input: !include /Examples/TrademarkExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "Trademark added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: Trademark
+              examples:
+                output: !include /Examples/TrademarkExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'Trademark with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: Trademark
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Trademark updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "Trademark deleted."
+
+/user:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: User[]
+            examples: 
+              output: !include /Examples/UserExamples.raml
+      404:
+        body:
+          application/json:
+            examples:
+              message: string "Not found."
+  post:
+    body:
+      application/json:
+        type: User
+        examples:
+          input: !include /Examples/UserExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: string "User added."
+      400:
+        body:
+          application/json:
+            example:
+              message: string 'Error'
+    
+  /{ID}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              type: User
+              examples:
+                output: !include /Examples/UserExample.raml
+        404:
+          body:
+            application/json:
+              example:
+                message: string 'User with inserted ID does not exist'
+    
+    put:
+      body:
+        application/json:
+          type: User
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "User updated"
+    
+    delete:
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: string "User deleted."
